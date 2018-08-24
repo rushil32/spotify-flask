@@ -1,0 +1,15 @@
+@mixin alert-theme($background, $border, $color) {
+  border-color: $border;
+  background-color: lighten($background, 3%);
+}
+
+.alert {
+  box-shadow: $theme-shadow-1;
+  border-width: 1px;
+}
+
+@each $color, $value in $theme-colors {
+  .alert-#{$color} {
+    @include alert-theme(theme-color-level($color, $alert-bg-level), theme-color-level($color, $alert-border-level), theme-color-level($color, $alert-color-level));
+  }
+}

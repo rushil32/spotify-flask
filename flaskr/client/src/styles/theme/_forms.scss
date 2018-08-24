@@ -1,0 +1,46 @@
+.form-control {
+  border-width: 1px;
+  box-shadow: $theme-shadow-0;
+
+  &:focus {
+    box-shadow: none;
+  }
+}
+
+.form-dropdown {
+  box-shadow: $theme-shadow-2;
+  position: absolute;
+  background-color: white;
+
+  span {
+    display: block;
+
+    &:nth-child(2) {
+      opacity: 0.4;
+    }
+  }
+
+  ul {
+    margin: 0;
+  }
+  
+  li {
+    padding: 15px;
+    border-bottom: 1px solid lighten($gray-200, 1%);
+
+
+    &:last-child {
+      border: 0;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: $gray-100;
+    }
+  }
+}
+
+label {
+  font-size: 15px;
+  font-weight: 600;
+}

@@ -1,0 +1,51 @@
+.modal-header {
+  border-bottom: none; 
+  align-items: center;
+  
+  i {
+    vertical-align: middle;
+  }
+  
+  .close {
+    align-self: flex-start;
+  }
+}
+
+.modal-content {
+  box-shadow: $theme-shadow-2;
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+.modal-footer {
+  border-top: none;
+  background: darken($gray-100, 1%);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.modal-icon {
+  margin-right: 15px;
+  background-color: $gray-200;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-footer-form {
+  margin: 0 -15px -15px -15px;
+}
+
+.modal-message {
+  text-align: center;
+
+  h3 {
+    margin: 20px 0 30px;
+  }
+
+  img {
+    max-height: 60px;
+  }
+}

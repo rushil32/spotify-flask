@@ -1,35 +1,42 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import { getSpotifyUser } from './util/auth';
+import Login from './components/login';
+import Dash from './components/dash';
 
 class App extends Component {
   state = {
-    response: ''
-  };
-
-  componentDidMount() {
-    this.callApi()
-      .then(res => this.setState({ response: res }))
-      .catch(err => console.log(err));
+    userInfo: {},
   }
 
-  callApi = async () => {
-    const response = await axios.get('/hello');
-    return response.data;
-  };
+  setUserInfo = (userInfo) => this.setState({ userInfo })
+
+  async componentDidMount() {
+    const userInfo = await getSpotifyUser();
+
+    if (userInfo.id) {
+      this.setUserInfo(userInfo);
+    }
+  }
 
   render() {
+    const { userInfo } = this.state;
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>{this.state.response}</p>
+        <Router>
+          <div>
+            <Switch>
+              <Route exact path="/login" component={(props) => 
+                <Login {...props} setUserInfo={this.setUserInfo} userInfo={userInfo} />
+              }/>
+              <Route path="/" component={(props) => 
+                <Dash {...props} userInfo={userInfo} />
+              }/>
+            </Switch>
+          </div>
+        </Router>
       </div>
     );
   }

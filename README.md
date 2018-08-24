@@ -13,6 +13,10 @@ A social media app centered around music. Built with sqllite, flask and react.
 export FLASK_APP=flaskr
 export FLASK_ENV=development
 
+### Initialize DB
+flask init-db
+
 ### Run server
 
 flask run
+

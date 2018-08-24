@@ -1,0 +1,46 @@
+$theme-colors: (
+  "primary": #546de5,
+  "secondary": #f5cd79,
+);
+
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+
+$theme-shadow-0: 0 1px 1px rgba(51, 51, 51, 0.1);
+$theme-shadow-1: 0 1px 2px rgba(51, 51, 51, 0.15);
+$theme-shadow-2: 0px 2px 7px 0px rgba(51, 51, 51, 0.18);
+
+$alert-bg-level: -11;
+$badge-font-size: 70%;
+$badge-font-weight: 400;
+$badge-padding-y: .35em;
+$badge-padding-x: .6em;
+$badge-border-radius: 20px;
+$card-border-color: rgba(black, .12);
+$input-btn-padding-y: .65rem;
+$input-btn-padding-x: .85rem;
+$input-border-color: $gray-300;
+$input-placeholder-color: $gray-400;
+$text-muted: $gray-500;
+$form-text-margin-top: .65rem;
+
+@import '../../../node_modules/bootstrap/scss/bootstrap';
+@import 'mixins/mixins';
+@import 'base';
+@import 'typography';
+@import 'transitions';
+@import 'buttons';
+@import 'alerts';
+@import 'badges';
+@import 'cards';
+@import 'dropdowns';
+@import 'navbar';
+@import 'forms';
+@import 'modals';

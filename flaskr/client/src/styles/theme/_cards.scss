@@ -1,0 +1,45 @@
+.card {
+  box-shadow: $theme-shadow-2;
+  border: 0;
+  transition: 0.2s;
+}
+
+.card-horizontal {
+  box-shadow: $theme-shadow-1;
+  flex-direction: row;
+  padding: 15px;
+  align-items: center;
+
+  &:hover {
+    box-shadow: $theme-shadow-2;
+    cursor: pointer;
+    transform: translate(0, -1px);
+    transform: scale(1.008);
+  }
+
+  h5, p {
+    font-size: 15px;
+  }
+
+  h5 {
+    font-weight: bold;
+  }
+
+  .card-title {
+    margin-bottom: 0.25em;
+  }
+
+  .card-text {
+    color: $gray-600;
+  }
+
+  .card-body {
+    padding: 0 1em;
+  }
+
+  .card-img-left {
+    max-height: 60px;
+    max-width: 60px;
+    border-radius: 50%;
+  }
+}

@@ -1,0 +1,9 @@
+@mixin badge-theme($bg) {
+  background-color: lighten($bg, 10%);
+}
+
+@each $color, $value in $theme-colors {
+  .badge-#{$color} {
+    @include badge-theme($value);
+  }
+}

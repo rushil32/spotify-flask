@@ -1,0 +1,7 @@
+@mixin bg-with-gradient($url) {
+  background: -o-linear-gradient(rgba(0,0,0,0.4) 0%,rgba(0,0,0,.6) 75%,rgba(0,0,0,.8) 100%), url($url) no-repeat;
+  background: -moz-linear-gradient(rgba(0,0,0,0.4) 0%,rgba(0,0,0,.6) 75%,rgba(0,0,0,.8) 100%), url($url) no-repeat;
+  background: -webkit-linear-gradient(rgba(0,0,0,0.4) 0%,rgba(0,0,0,.6) 75%,rgba(0,0,0,.8) 100%), url($url) no-repeat;
+  background: -ms-linear-gradient(rgba(0,0,0,0.4) 0%,rgba(0,0,0,.6) 75%,rgba(0,0,0,.8) 100%), url($url) no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.4) 0%,rgba(0,0,0,.6) 75%,rgba(0,0,0,.8) 100%), url($url) no-repeat;
+}

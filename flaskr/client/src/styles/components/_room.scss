@@ -1,0 +1,14 @@
+.room {
+  max-width: 600px;
+  margin: 40px auto 0px;
+
+  &__header,
+  &__subheader {
+    text-align: center;
+    margin: 0;
+  }
+
+  &__subheader {
+    opacity: 0.5;
+  }
+}

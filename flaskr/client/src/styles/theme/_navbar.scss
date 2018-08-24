@@ -1,0 +1,15 @@
+.navbar {
+  box-shadow: $theme-shadow-1;
+}
+
+.navbar-brand {
+  img {
+    max-height: 30px;
+  }
+}
+
+.navbar-transperant {
+  background: none;
+  box-shadow: none;
+  padding: 1rem 1rem 0.5rem; 
+}

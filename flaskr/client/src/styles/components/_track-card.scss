@@ -1,0 +1,21 @@
+.track-card {
+  display: flex;
+  padding: 10px;
+  border: 1px solid $gray-200;
+  margin-bottom: 1rem;
+  border-radius: 4px;
+  background-color: $gray-100;
+
+  img {
+    margin-right: 15px;
+    border-radius: 3px;
+  }
+
+  span {
+    display: block;
+
+    &:not(:first-child) {
+      color: $gray-500;
+    }
+  }
+}

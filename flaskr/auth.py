@@ -1,7 +1,9 @@
 import functools
+import requests
+from urllib.parse import quote
 
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
+    Blueprint, flash, g, redirect, render_template, request, session, json, jsonify, make_response
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -10,60 +12,111 @@ from flaskr.db import get_db
 bp = Blueprint('auth', __name__, url_prefix='/auth')
 
 
-@bp.route('/register', methods=('GET', 'POST'))
-def register():
+#  Client Keys
+CLIENT_ID = "8c06c0bb526149eb93d03629faa201c6"
+CLIENT_SECRET = "6f5d5b880177479dbf9ac97994071076"
+
+# Spotify URLS
+SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
+SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"
+SPOTIFY_API_BASE_URL = "https://api.spotify.com"
+API_VERSION = "v1"
+SPOTIFY_API_URL = "{}/{}".format(SPOTIFY_API_BASE_URL, API_VERSION)
+
+# Server-side Parameters
+REDIRECT_URI = "http://localhost:3000/login"
+SCOPE = "playlist-modify-public playlist-modify-private"
+STATE = ""
+SHOW_DIALOG_bool = True
+SHOW_DIALOG_str = str(SHOW_DIALOG_bool).lower()
+
+auth_query_parameters = {
+    "response_type": "code",
+    "redirect_uri": REDIRECT_URI,
+    "scope": SCOPE,
+    # "state": STATE,
+    # "show_dialog": SHOW_DIALOG_str,
+    "client_id": CLIENT_ID
+}
+
+
+def get_auth_header(token):
+    return {"Authorization": "Bearer {}".format(token)}
+
+
+def auth_payload(token):
+    return {
+        "grant_type": "authorization_code",
+        "code": str(token),
+        "redirect_uri": REDIRECT_URI,
+        "client_id": CLIENT_ID,
+        "client_secret": CLIENT_SECRET,
+    }
+
+def get_user_profile(token):
+    user_profile_api_endpoint = "{}/me".format(SPOTIFY_API_URL)
+    profile_response = requests.get(
+        user_profile_api_endpoint, headers=get_auth_header(token)
+    )
+
+    return json.loads(profile_response.text)
+
+
+
+@bp.route("/redirect-spotify")
+def index():
+    url_args = "&".join(["{}={}".format(key, quote(val))
+                         for key, val in auth_query_parameters.items()])
+    auth_url = "{}/?{}".format(SPOTIFY_AUTH_URL, url_args)
+    return auth_url
+
+
+@bp.route('/user', methods=('GET', 'POST'))
+def get_user():
+    access_token = ''
+
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        db = get_db()
-        error = None
+        data = request.json
+        auth_token = data['code']
 
-        if not username:
-            error = 'Username is required.'
-        elif not password:
-            error = 'Password is required.'
-        elif db.execute(
-            'SELECT id FROM user WHERE username = ?', (username,)
-        ).fetchone() is not None:
-            error = 'User {} is already registered.'.format(username)
+        post_request = requests.post(SPOTIFY_TOKEN_URL, data=auth_payload(auth_token))
 
-        if error is None:
-            db.execute(
-                'INSERT INTO user (username, password) VALUES (?, ?)',
-                (username, generate_password_hash(password))
-            )
-            db.commit()
-            return redirect(url_for('auth.login'))
+        response_data = json.loads(post_request.text)
+        access_token = response_data["access_token"]
+        refresh_token = response_data["refresh_token"]
 
-        flash(error)
+        session['access_token'] = access_token
+        session['refresh_token'] = refresh_token
 
-    return render_template('auth/register.html')
+    elif 'access_token' in session:
+        access_token = session['access_token']
+
+    profile_data = get_user_profile(access_token)
+
+    if 'error' in profile_data:
+        return 'Not logged in'
+      
+    session['user_id'] = profile_data['id']
+    
+    create_user(profile_data)
+
+    res = make_response(jsonify(profile_data), 200)
+    res.set_cookie('access_token', access_token)
+
+    return res
 
 
-@bp.route('/login', methods=('GET', 'POST'))
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        db = get_db()
-        error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+def create_user(data):
+    db = get_db()
 
-        if user is None:
-            error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
-
-        if error is None:
-            session.clear()
-            session['user_id'] = user['id']
-            return redirect(url_for('index'))
-
-        flash(error)
-
-    return render_template('auth/login.html')
+    if db.execute(
+        'SELECT spotify_id FROM users WHERE spotify_id = ?', (data['id'],)
+    ).fetchone() is None:
+        db.execute(
+            'INSERT INTO users (spotify_id, full_name, display_image) VALUES (?, ?, ?)',
+            (data['id'], data['display_name'], data['images'][0]['url'])
+        )
+        db.commit()
 
 
 @bp.before_app_request
@@ -74,22 +127,11 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id,)
+            'SELECT * FROM users WHERE spotify_id = ?', (user_id,)
         ).fetchone()
 
 
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
-
-
-def login_required(view):
-    @functools.wraps(view)
-    def wrapped_view(**kwargs):
-        if g.user is None:
-            return redirect(url_for('auth.login'))
-
-        return view(**kwargs)
-
-    return wrapped_view
+    return 'True'
