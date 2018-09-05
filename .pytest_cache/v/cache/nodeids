@@ -1,0 +1,9 @@
+[
+  "flaskr/tests/fizz_buzz_spec.py::test_fizz_buzz_1",
+  "flaskr/tests/fizz_buzz_spec.py::test_fizz_buzz_2",
+  "flaskr/tests/fizz_buzz_spec.py::test_fizz_buzz_3",
+  "flaskr/tests/fizz_buzz_spec.py::test_fizz_buzz_5",
+  "flaskr/tests/fizz_buzz_spec.py::test_fizz_buzz_6",
+  "flaskr/tests/fizz_buzz_spec.py::test_fizz_buzz_10",
+  "flaskr/tests/fizz_buzz_spec.py::test_fizz_buzz_15"
+]
