@@ -5,3 +5,9 @@ body {
   min-height: 100vh;
   background-size: cover;
 }
+
+i {
+  &:hover {
+    cursor: pointer;
+  }
+}

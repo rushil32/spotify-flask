@@ -13,7 +13,7 @@ const FloatingButton = ({ handleClick, tooltip, icon }) => {
       title={tooltip}
       onClick={handleClick}
     >
-      <i class="material-icons">{icon}</i>
+      <i className="material-icons">{icon}</i>
     </button>
   );
 };

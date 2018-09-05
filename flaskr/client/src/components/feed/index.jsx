@@ -6,6 +6,8 @@ import RoomCard from './RoomCard';
 import Modal from '../common/Modal';
 import RoomForm from './RoomForm';
 
+import { initTooltips } from '../../util/bootstrap';
+
 class Feed extends Component {
   constructor(props) {
     super(props);
@@ -13,10 +15,9 @@ class Feed extends Component {
   }
 
   async componentDidMount() {
-    window.$('[data-toggle="tooltip"]').tooltip();
-
     const rooms = await axios.get('/rooms/all');
     const list = rooms.data;
+    initTooltips();
     this.setState({ rooms: list });
   }
 

@@ -10,7 +10,7 @@ class App extends Component {
     userInfo: {},
   }
 
-  setUserInfo = (userInfo) => this.setState({ userInfo })
+  setUserInfo = (userInfo) => this.setState({ userInfo });
 
   async componentDidMount() {
     const userInfo = await getSpotifyUser();

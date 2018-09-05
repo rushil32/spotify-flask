@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 
 import Modal from '../common/Modal';
 import PostForm from './PostForm';
 import PostList from './PostList';
+// import WebPlayer from './WebPlayer';
 import { getRoom, getPosts } from '../../util/room';
 
 class Room extends Component {
@@ -25,8 +25,7 @@ class Room extends Component {
     this.setState({ room, posts, roomReady: true });
   }
 
-  handleNewPost = (updatedList) => {
-    debugger;
+  updatePosts = (updatedList) => {
     this.setState({ posts: updatedList });
   }
 
@@ -41,15 +40,15 @@ class Room extends Component {
 
     return (
       <div className="room">
-        <div className="card animated fadeInUp">
+        <div className="animated fadeInUp">
           <div className="card-body">
             <h1 className="room__header">{room_name}</h1>
             <p className="room__subheader">Hosted by {full_name}</p>
-            <PostList posts={this.state.posts} ready={this.state.roomReady} />
+            <PostList posts={this.state.posts} ready={this.state.roomReady} updatePosts={this.updatePosts} />
           </div>
         </div>
         <Modal name="postModal" icon="playlist_add" header="Add a track">
-          <PostForm roomId={roomId} onSuccess={this.handleNewPost} />
+          <PostForm roomId={roomId} onSuccess={this.updatePosts} />
         </Modal>
       </div>
     );

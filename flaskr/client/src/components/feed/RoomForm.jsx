@@ -63,7 +63,7 @@ class RoomForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <label for="nameInput">Name</label>
+          <label htmlFor="nameInput">Name</label>
           <input 
             type="text" 
             className="form-control" 
@@ -85,7 +85,7 @@ class RoomForm extends Component {
               checked={this.state.isPrivate}
               onChange={this.handleChange}
             />
-            <label className="form-check-label" for="privateCheck">Private Room</label>
+            <label className="form-check-label" htmlFor="privateCheck">Private Room</label>
             <small id="visibilityHelp" className="form-text text-muted">Private rooms won't be shown in the feed</small>
           </div>
         </div>

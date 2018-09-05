@@ -15,19 +15,24 @@ const Nav = ({ logout }) => {
     
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav ml-auto">
-        <li className="nav-item active">
-            <a className="nav-link" href="#">
-              <i class="material-icons">account_circle</i>
+          <li className="nav-item">
+            <a className="nav-link active" href="#">
+              <i className="material-icons">public</i>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" href="#">
-              <i class="material-icons">favorite</i>
+              <i className="material-icons">account_circle</i>
+            </a>
+          </li>
+          <li className="nav-item">
+            <a className="nav-link" href="#">
+              <i className="material-icons">favorite</i>
             </a>
           </li>
           <li className="nav-item">
             <a className="nav-link" onClick={logout}>
-              <i class="material-icons">exit_to_app</i>
+              <i className="material-icons">exit_to_app</i>
             </a>
           </li>
         </ul>

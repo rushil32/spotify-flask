@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import cookie from 'js-cookie';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Feed from '../feed'
@@ -7,6 +8,7 @@ import Nav from '../common/Nav';
 import FloatingButton from '../common/FloatingButton';
 
 import { logout } from '../../util/auth';
+import { showModal } from '../../util/bootstrap';
 
 class Dash extends Component {
   constructor(props) {
@@ -16,16 +18,12 @@ class Dash extends Component {
 
   componentDidMount() {
     const { userInfo, history } = this.props; 
-    const $ = window.$;
     
     if (!userInfo.id) {
       history.push('/login');
+    } else {
+      // window.player = initPlayer(cookie.get('access_token'));
     }
-  }
-
-  showModal = (modalName) => {
-    const $ = window.$;
-    $(`#${modalName}`).modal('show');
   }
 
   logout = async () => {
@@ -46,10 +44,10 @@ class Dash extends Component {
             <Route path="/room/:id" component={Room} />
           </Switch>
           <Route exact path="/" component={() => (
-            <FloatingButton icon="group_add" tooltip="Start Room" handleClick={() => this.showModal('roomModal')} />
+            <FloatingButton icon="group_add" tooltip="Start Room" handleClick={() => showModal('roomModal')} />
           )} />
           <Route exact path="/room/:id" component={() => (
-            <FloatingButton icon="playlist_add" tooltip="Create Post" handleClick={() => this.showModal('postModal')} />
+            <FloatingButton icon="playlist_add" tooltip="Create Post" handleClick={() => showModal('postModal')} />
           )} />
         </div>
       </Router>

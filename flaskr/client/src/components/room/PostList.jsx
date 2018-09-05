@@ -1,7 +1,9 @@
 import React from 'react';
 import iconBored from '../../assets/icon-bored.svg';
 
-const PostList = ({ posts = [], ready=false }) => {
+import Post from './Post';
+
+const PostList = ({ posts = [], ready=false, updatePosts }) => {
   if (!ready) {
     return (<div className="spinner-1"></div>);
   }
@@ -19,13 +21,9 @@ const PostList = ({ posts = [], ready=false }) => {
     <div className="post-list">
       <ul>
         {posts.map(post => (
-          <li>
-            <img src={post.album_cover_md} />
-            <div>
-              <span>{post.track_name}</span>
-              <span>{post.artist}</span>
-            </div>
-          </li> 
+          <div key={post.id}>
+            <Post data={post} updatePosts={updatePosts} />
+          </div>
         ))}
       </ul>
     </div>

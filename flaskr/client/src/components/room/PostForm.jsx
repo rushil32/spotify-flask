@@ -76,7 +76,7 @@ class PostForm extends Component {
     return (
       <form className="post-form" onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <label for="searchInput">Search for a track</label>
+          <label htmlFor="searchInput">Search for a track</label>
           <input
             type="text" 
             className="form-control" 
@@ -100,7 +100,7 @@ class PostForm extends Component {
         {track.name && (<TrackCard track={track} />)}
 
         <div className="form-group">
-          <label for="bodyInput">Anything to say about the track? (optional)</label>
+          <label htmlFor="bodyInput">Anything to say about the track? (optional)</label>
           <textarea id="bodyInput" name="body" className="form-control" value={this.state.body} onChange={this.handleChange} />
         </div>
         

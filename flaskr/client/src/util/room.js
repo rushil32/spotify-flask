@@ -6,7 +6,7 @@ const config = {
     'Content-Type': 'multipart/form-data',
     'Access-Control-Allow-Origin': '*'
   }
-}
+};
 
 export function createRoom(name, isPrivate) {
   return new Promise((resolve, reject) => {
@@ -57,6 +57,19 @@ export function getRoom(roomId) {
 export function getPosts(roomId) {
   return new Promise((resolve, reject) => {
     axios.get(`/posts/get/${roomId}`).then(
+      res => resolve(res.data),
+      err => reject(err)
+    );
+  });
+}
+
+export function commentOnPost(post, room, body) {
+  return new Promise((resolve, reject) => {
+    axios.post('/posts/comment', createFormData({
+      body,
+      room,
+      post,
+    }), config).then(
       res => resolve(res.data),
       err => reject(err)
     );
