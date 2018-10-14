@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import axios from 'axios';
 
 import RoomCard from './RoomCard';
 import Modal from '../common/Modal';
@@ -14,11 +13,8 @@ class Feed extends Component {
     this.state = { rooms: [] }
   }
 
-  async componentDidMount() {
-    const rooms = await axios.get('/rooms/all');
-    const list = rooms.data;
+  componentDidMount() {
     initTooltips();
-    this.setState({ rooms: list });
   }
 
   openRoom = (id) => {
@@ -26,7 +22,7 @@ class Feed extends Component {
   }
 
   render() {
-    const roomList = this.state.rooms.map(room => 
+    const roomList = this.props.rooms.map(room => 
       <div key={room.id} onClick={() => this.openRoom(room.id)}>
         <RoomCard data={room} />
       </div>
@@ -46,11 +42,11 @@ class Feed extends Component {
 }
 
 Feed.propTypes = {
-
+  rooms: PropTypes.array
 }
 
 Feed.defaulProps = {
-
+  rooms: []
 }
  
 export default Feed;

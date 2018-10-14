@@ -3,5 +3,9 @@ export function showModal(name) {
 }
 
 export function initTooltips() {
-  window.$('[data-toggle="tooltip"]').tooltip();
+  try {
+    window.$('[data-toggle="tooltip"]').tooltip();
+  } catch(e) {
+    console.log('Bootstrap not loaded');
+  }
 }

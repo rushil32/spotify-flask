@@ -9,12 +9,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from flaskr.db import get_db
 
+from flaskr.config import config
+
 bp = Blueprint('auth', __name__, url_prefix='/auth')
-
-
-#  Client Keys
-CLIENT_ID = "8c06c0bb526149eb93d03629faa201c6"
-CLIENT_SECRET = "6f5d5b880177479dbf9ac97994071076"
 
 # Spotify URLS
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
@@ -36,7 +33,7 @@ auth_query_parameters = {
     "scope": SCOPE,
     # "state": STATE,
     # "show_dialog": SHOW_DIALOG_str,
-    "client_id": CLIENT_ID
+    "client_id": config['client_id']
 }
 
 
@@ -49,8 +46,8 @@ def auth_payload(token):
         "grant_type": "authorization_code",
         "code": str(token),
         "redirect_uri": REDIRECT_URI,
-        "client_id": CLIENT_ID,
-        "client_secret": CLIENT_SECRET,
+        "client_id": config['client_id'],
+        "client_secret": config['client_secret'],
     }
 
 def get_user_profile(token):

@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders the dropdown correctly 1`] = `
+<div
+  className="form-dropdown"
+  style={
+    Object {
+      "width": "100pxpx",
+    }
+  }
+>
+  <ul>
+    <li
+      onClick={[Function]}
+    >
+      <span>
+        First option
+      </span>
+      <span>
+        The first option!
+      </span>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <span>
+        Second option
+      </span>
+      <span>
+        The second option!
+      </span>
+    </li>
+    <li
+      onClick={[Function]}
+    >
+      <span>
+        Third option
+      </span>
+      <span>
+        The third option!
+      </span>
+    </li>
+  </ul>
+</div>
+`;
+
+exports[`renders the floating button correctly 1`] = `
+<button
+  className="btn btn-float animated flipInX"
+  data-offset="0, 5"
+  data-placement="top"
+  data-toggle="tooltip"
+  onClick={[Function]}
+  title="Start Room"
+  type="button"
+>
+  <i
+    className="material-icons"
+  >
+    group_add
+  </i>
+</button>
+`;
+
+exports[`renders the modal correctly 1`] = `
+<div
+  className="modal fade"
+  id=""
+  role="dialog"
+  tabIndex="-1"
+>
+  <div
+    className="modal-dialog"
+    role="document"
+  >
+    <div
+      className="modal-content"
+    >
+      <div
+        className="modal-header"
+      >
+        <span
+          className="modal-icon"
+        >
+          <i
+            className="material-icons"
+          >
+            plus
+          </i>
+        </span>
+        <h5
+          className="modal-title"
+        >
+          
+        </h5>
+        <button
+          aria-label="Close"
+          className="close"
+          data-dismiss="modal"
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+          >
+            ×
+          </span>
+        </button>
+      </div>
+      <div
+        className="modal-body"
+      >
+        <div />
+      </div>
+    </div>
+  </div>
+</div>
+`;

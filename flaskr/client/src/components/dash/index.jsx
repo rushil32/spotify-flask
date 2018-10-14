@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import cookie from 'js-cookie';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Feed from '../feed'
@@ -10,19 +9,25 @@ import FloatingButton from '../common/FloatingButton';
 import { logout } from '../../util/auth';
 import { showModal } from '../../util/bootstrap';
 
+import { getRooms } from '../../util/feed';
+
 class Dash extends Component {
   constructor(props) {
     super(props);
-    this.state = {  }
+    this.state = {
+      rooms: []
+    }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { userInfo, history } = this.props; 
+    let rooms = [];
     
     if (!userInfo.id) {
       history.push('/login');
     } else {
-      // window.player = initPlayer(cookie.get('access_token'));
+      rooms = await getRooms();
+      this.setState({ rooms });
     }
   }
 
@@ -40,7 +45,9 @@ class Dash extends Component {
         <div>
           <Nav logout={this.logout} />
           <Switch>
-            <Route exact path="/" component={Feed} />
+            <Route exact path="/" component={(props) => (
+              <Feed {...props} rooms={this.state.rooms} />
+            )}/>
             <Route path="/room/:id" component={Room} />
           </Switch>
           <Route exact path="/" component={() => (

@@ -92,7 +92,7 @@ class PostForm extends Component {
             <DropDown
               list={searchResults}
               handleClick={this.addTrack}
-              parentEle={this.trackSearch.current}
+              width={this.trackSearch.current.getBoundingClientRect().width}
             />
           )}
         </div>

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { removeHashParams } from './url';
+import { getRequestOptions } from './general';
 
 const config = { 
   headers: {  

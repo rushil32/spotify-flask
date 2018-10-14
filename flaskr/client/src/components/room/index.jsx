@@ -3,8 +3,9 @@ import React, { Component } from 'react';
 import Modal from '../common/Modal';
 import PostForm from './PostForm';
 import PostList from './PostList';
-// import WebPlayer from './WebPlayer';
+import data from './data.json';
 import { getRoom, getPosts } from '../../util/room';
+import { initTooltips } from '../../util/bootstrap';
 
 class Room extends Component {
   constructor(props) {
@@ -16,8 +17,13 @@ class Room extends Component {
     };
   }
 
+  getData = (selected) => {
+    const option = this.options.find(option => option.text === selected);
+    return data.filter(player => player[option.field] > option.gt);
+  }
+
   async componentDidMount() {
-    window.$('[data-toggle="tooltip"]').tooltip();
+    initTooltips();
 
     const { id } = this.props.match.params;
     const [room, posts] = await Promise.all([getRoom(id), getPosts(id)]);

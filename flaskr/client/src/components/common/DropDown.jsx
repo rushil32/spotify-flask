@@ -1,10 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const DropDown = ({ list = [], handleClick, parentEle }) => {
-  const width = parentEle.getBoundingClientRect().width;
-
+const DropDown = ({ list, handleClick, width }) => {
   return (
-    <div className="form-dropdown" style={{ width: width + 'px' }}>
+    <div className="form-dropdown" style={{ width: `${width}px` }}>
       <ul>
         {list.map((item, index) => (
           <li key={index} onClick={() => handleClick(item)}>
@@ -15,6 +14,18 @@ const DropDown = ({ list = [], handleClick, parentEle }) => {
       </ul>
     </div>
   );
-}
- 
+};
+
+DropDown.defaultProps = {
+  width: '100px',
+  handleClick: () => {},
+  list: [],
+};
+
+DropDown.propTypes = {
+  width: PropTypes.string,
+  handleClick: PropTypes.func,
+  list: PropTypes.array,
+};
+
 export default DropDown;

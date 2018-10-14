@@ -63,7 +63,8 @@ class Post extends Component {
             body={body}
             author={author}
             date={created}
-        />)}
+          />
+        )}
         <div className="post__track">
           <div className="post__track__info">
             <img src={album_cover_md} />

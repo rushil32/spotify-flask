@@ -1,3 +1,4 @@
 __pycache__
 flaskr/__pycache__
+flaskr/config.py
 venv

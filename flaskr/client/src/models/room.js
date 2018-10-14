@@ -7,8 +7,11 @@ class Room {
   }
 
   async getRoomData() {
-    const data = await axios.get(`/rooms/get/${this.id}`);
-    return data;
+    return axios.get(`/rooms/get/${this.id}`);
+  }
+
+  createRoom() {
+    
   }
 }
 

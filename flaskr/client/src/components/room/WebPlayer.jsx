@@ -51,6 +51,10 @@ class WebPlayer extends Component {
     }
   }
 
+  componentWillUnmount() {
+    clearInterval(this.playerCheckInterval);
+  }
+
   render() {
     return (
       <div className="web-player">

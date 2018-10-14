@@ -14,8 +14,8 @@ class App extends Component {
 
   async componentDidMount() {
     const userInfo = await getSpotifyUser();
-
-    if (userInfo.id) {
+    
+    if (userInfo) {
       this.setUserInfo(userInfo);
     }
   }
